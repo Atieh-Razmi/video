@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'accounts.apps.AccountsConfig',
     'videos.apps.VideosConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,4 @@ REST_FRAMEWORK = {
     ]
     
 }
+
