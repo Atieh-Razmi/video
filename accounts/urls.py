@@ -17,4 +17,6 @@ urlpatterns =[
     path('subscription/cancelsubscription/', views.CancelsubscriptionView.as_view()),
     path('payment_history/', views.paymenthistoryview.as_view()),
     path('subscription/Remindinfdays/', views.RemindinfdaysView.as_view()),
+    path('comment/', views.commentView.as_view()),
+    path('comment/create/', views.commentCreateView.as_view()),
 ]

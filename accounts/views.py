@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .serializers import UserRegisterSerializer, UserLoginSerializer, SubscriptionSerializer
+from .serializers import UserRegisterSerializer, UserLoginSerializer, SubscriptionSerializer, commentSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import Subscription, PaymentHistory
+from .models import Subscription, PaymentHistory, comment
 from datetime import timedelta
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -121,4 +121,18 @@ class RemindinfdaysView(APIView):
         except Subscription.DoesNotExist:
             return Response({
                 'error': 'no active subscription found'
-            }, status=status.HTTP_404_NOT_FOUND)          
+            }, status=status.HTTP_404_NOT_FOUND)   
+
+class commentView(APIView):
+    def get(self, request):
+        comments = comment.objects.all()
+        srz_data = commentSerializer(instance=comments, many=True)
+        return Response(srz_data.data, status=status.HTTP_200_OK)
+    
+class commentCreateView(APIView):
+    def post(self, request):
+        srz_data = commentSerializer(data=request.data)
+        if srz_data.is_valid():
+            srz_data.save()
+            return Response(srz_data.data, status=status.HTTP_201_CREATED)
+        return Response(srz_data.errors, status=status.HTTP_400_BAD_REQUEST)               

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Subscription, PaymentHistory
+from .models import Subscription, PaymentHistory, comment
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(required=True, write_only=True)
@@ -36,4 +36,9 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class PaymentHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentHistory
-        fields = "__all__"      
+        fields = "__all__"
+
+class commentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = comment
+        fields = "__all__"     
